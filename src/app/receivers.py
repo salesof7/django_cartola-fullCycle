@@ -31,7 +31,7 @@ def get_old_match(sender, instance: Match, **kwargs):
 
 @receiver(post_save, sender=Match)
 def publish_new_match_result(sender, instance: Match, created: bool, **kwargs):
-    if not created and instance._pre_save_instance != instance.team_a_gol or instance._pre_save_instance != instance.team_b_gol:
+    if not created and instance._pre_save_instance and (instance._pre_save_instance != instance.team_a_gol or instance._pre_save_instance != instance.team_b_gol):
         print("Match result published")
 
 
