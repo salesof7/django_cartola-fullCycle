@@ -21,22 +21,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 env = environ.Env(
-    SECRET_KEY=(str, ''),
+    SECRET_KEY=(str, 'DEFAULT'),
     DEBUG=(bool, False),
+    DATABASE_URL=(list, 'DEFAULT'),
     ALLOWED_HOSTS=(list, ['*']),
-    DATABASE_URL=(str, ''),
 )
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = "django-insecure-e1ik2us@(ov=@!2mj5ut9cdq-el%__o^gex99c*bao09w(^l3j"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = True
 
-ALLOWED_HOSTS = env('ALLOWED_HOSTS')
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -85,9 +85,15 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(default=env('DATABASE_URL'))
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
+# DATABASES = {
+#     'default': dj_database_url.config(default=env.db())
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
