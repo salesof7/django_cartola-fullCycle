@@ -16,13 +16,6 @@ class Team(models.Model):
         return self.name
 
 
-class MyTeam(models.Model):
-    players = models.ManyToManyField(Player)
-
-    def __str__(self):
-        return [player.name for player in self.players.all()].__str__()
-
-
 class Match(models.Model):
     team_a = models.ForeignKey(
         Team,
